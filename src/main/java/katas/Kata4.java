@@ -21,7 +21,7 @@ public class Kata4 {
 
         return movieLists.stream().map(movie -> movie.getVideos())
                 .flatMap(videos -> videos.stream())
-                .map(video -> ImmutableMap.of("id",video.getId(),"title",video.getTitle(),"boxart",video.getBoxarts()))
+                .map(video -> Map.of("id",video.getId(),"title",video.getTitle(),"boxart",video.getBoxarts()))
                 .collect(Collectors.toList());
 
         //return ImmutableList.of(ImmutableMap.of("id", 5, "title", "Bad Boys", "boxart", new BoxArt(150, 200, "url")));

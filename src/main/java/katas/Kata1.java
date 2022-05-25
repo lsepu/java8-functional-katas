@@ -20,7 +20,7 @@ public class Kata1 {
     public static List<Map> execute() {
         List<Movie> movies = DataUtil.getMovies();
 
-        Function <Movie, Map> getIdTitle = (movie) -> ImmutableMap.of("id", movie.getId(), "title", movie.getTitle());
+        Function <Movie, Map> getIdTitle = (movie) -> Map.of("id", movie.getId(), "title", movie.getTitle());
 
         return movies.stream().map(movie -> getIdTitle.apply(movie)).collect(Collectors.toList());
 
