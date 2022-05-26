@@ -17,7 +17,7 @@ public class Kata6 {
     public static String execute() {
         List<Movie> movies = DataUtil.getMovies();
 
-        BiFunction<BoxArt, BoxArt, BoxArt> getLarger = (boxOne, boxTwo) -> boxOne.getWidth() > boxTwo.getWidth() && boxOne.getHeight() > boxTwo.getHeight()
+        BiFunction<BoxArt, BoxArt, BoxArt> getLarger = (boxOne, boxTwo) -> boxOne.getWidth() >= boxTwo.getWidth() && boxOne.getHeight() >= boxTwo.getHeight()
                 ? boxOne
                 : boxTwo;
 

@@ -2,10 +2,14 @@ package katas;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import model.BoxArt;
 import util.DataUtil;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /*
     Goal: Create a datastructure from the given data:
@@ -63,8 +67,36 @@ public class Kata11 {
         List<Map> boxArts = DataUtil.getBoxArts();
         List<Map> bookmarkList = DataUtil.getBookmarkList();
 
-        return ImmutableList.of(ImmutableMap.of("name", "someName", "videos", ImmutableList.of(
-                ImmutableMap.of("id", 5, "title", "The Chamber", "time", 123, "boxart", "someUrl")
-        )));
+
+        //get the smallest boxart
+        BiFunction<Map, Map, Map> getSmallest = (boxOne, boxTwo) ->
+                (Integer) boxOne.get("width") >= (Integer) boxTwo.get("width") && (Integer) boxOne.get("height") >= (Integer) boxTwo.get("height")
+                        ? boxTwo
+                        : boxOne;
+
+        //get the url of boxart
+        Function<String, String> getSmallestBoxArtUrl = (videoId) -> boxArts.stream()
+                .filter(boxArt -> boxArt.get("videoId").toString().equals(videoId))
+                .reduce((boxArtOne, boxArtTwo) -> getSmallest.apply(boxArtOne, boxArtTwo))
+                .get().get("url").toString();
+
+        //get the time
+        Function<String, String> getTime = (videoId) -> bookmarkList.stream()
+                .filter(bookmark -> bookmark.get("videoId").toString().equals(videoId))
+                .findFirst().get().get("time").toString();
+
+        //get the videos
+        Function<String, List<Map>> getVideos = (listId) -> videos.stream()
+                .filter(video -> video.get("listId").toString().equals(listId))
+                .map(video -> Map.of("id", video.get("id"), "title", video.get("title"),
+                        "time", getTime.apply(video.get("id").toString()),
+                        "boxart", getSmallestBoxArtUrl.apply(video.get("id").toString())))
+                .collect(Collectors.toList());
+
+        //return new map
+       return lists.stream().map(list -> Map.of("name", list.get("name"), "videos", getVideos.apply(list.get("id").toString())))
+                .collect(Collectors.toList());
+
+
     }
 }
