@@ -59,7 +59,7 @@ public class Kata10 {
 
         Function<String, List<Map>> getVideos = (listId) -> videos.stream()
                 .filter(video -> video.get("listId").toString().equals(listId))
-                        .map(video -> Map.of("id",video.get("id"),"title",video.get("title")))
+                .map(video -> Map.of("id",video.get("id"),"title",video.get("title")))
                 .collect(Collectors.toList());
 
         return lists.stream().map(list -> Map.of("name", list.get("name"), "videos", getVideos.apply(list.get("id").toString())))

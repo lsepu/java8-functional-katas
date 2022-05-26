@@ -23,8 +23,8 @@ public class Kata9 {
     public static List<Map> execute() {
         List<MovieList> movieLists = DataUtil.getMovieLists();
 
-        Function<List<InterestingMoment>, Date> getMiddleInterestingMoment = (interestingMoments) ->
-                interestingMoments.stream().filter(interestingMoment -> interestingMoment.getType().equals("Middle"))
+        Function<List<InterestingMoment>, Date> getMiddleInterestingMoment = (interestingMoments) -> interestingMoments.stream()
+                        .filter(interestingMoment -> interestingMoment.getType().equals("Middle"))
                         .map(interestingMoment -> interestingMoment.getTime()).findFirst().get();
 
         return movieLists.stream().map(movie -> movie.getVideos())

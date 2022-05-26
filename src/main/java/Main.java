@@ -25,10 +25,6 @@ public class Main {
         assertEquals(Kata7.execute().size(), 4);
         System.out.println("Kata 7 solved!");
 
-        System.out.println(Kata11.execute());
-
-        /*
-
         assertEquals(Kata8.execute().size(), 3);
         System.out.println("Kata 8 solved!");
 
@@ -41,6 +37,6 @@ public class Main {
         assertEquals(Kata11.execute().size(), 2);
         System.out.println("Kata 11 solved!");
 
-        System.out.println("ALL DONE, you're a functional programming NINJA!"); */
+        System.out.println("ALL DONE, you're a functional programming NINJA!");
     }
 }
